@@ -1,1 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Toss</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            position: fixed;
+            /* Fix position relative to the screen */
+            top: 20px;
+            /* Add some space from the top */
+            right: 20px;
+            /* Add some space from the right */
+            display: none;
+            /* Keep hidden by default */
+            justify-content: center;
+            /* Center content horizontally */
+            align-items: flex-start;
+            /* Align items from the top */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Transparent black background */
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 10px;
+            /* Add padding around the content */
+            z-index: 9999;
+            /* Make sure it stays on top */
+            flex-direction: column;
+            /* Stack elements vertically */
+            width: auto;
+            max-width: 300px;
+            /* Limit the width of the UI */
+        }
+
+        #diceContainer {
+            margin-bottom: 10px;
+            /* Space between dice and title */
+        }
+
+        #title {
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            word-wrap: break-word;
+            /* Ensures long words wrap instead of overflowing */
+            white-space: normal;
+            /* Allows text to break into multiple lines */
+            overflow-wrap: break-word;
+            /* Ensures that long words break correctly */
+            max-width: 90%;
+            /* Ensures the title doesn't stretch too wide */
+            word-break: break-word;
+            /* Allows text to break at word boundaries */
+        }
+
+        img {
+            max-width: 100%;
+            /* Limit image size to fit within the container */
+            height: auto;
+            /* Keep the aspect ratio */
+            border: none;
+            border-radius: 0;
+            display: block;
+            /* Remove any margin/spacing around the image */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Dice container, hidden by default -->
+    <div id="diceContainer">
+        <img id="diceImage" src="" alt="Dice">
+    </div>
+
+    <!-- Title for the roll -->
+    <div id="title"></div>
+
+    <script>
+        window.addEventListener("message", function (event) {
+            console.log("Received event data:", event.data);  // Log for debugging
+
+            if (event.data.type === "ui") {
+                // Set the title with the player's name
+                document.getElementById("title").textContent = event.data.title || "";
+
+                // Set the dice image
+                document.getElementById("diceImage").src = `images/${event.data.diceNumber}` || "";
+
+                // Toggle display: flex for showing and display: none for hiding
+                document.body.style.display = event.data.display ? "flex" : "none";
+            }
+        });
+    </script>
+</body>
+
+</html>
