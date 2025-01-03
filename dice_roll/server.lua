@@ -8,21 +8,21 @@ AddEventHandler("rollDiceNearby", function(coords, diceRoll)
     local firstname = character.firstname
     local lastname = character.lastname
 
-    print("Server received dice roll request: ", diceRoll)  -- Debug print
+    --print("Server received dice roll request: ", diceRoll)  -- Debug print
 
     local players = GetPlayers()  -- Get all players
-    print("Total players on the server: ", #players)  -- Debug print
+    --print("Total players on the server: ", #players)  -- Debug print
 
     for _, playerId in ipairs(players) do
         local ped = GetPlayerPed(playerId)
         local playerCoords = GetEntityCoords(ped)
 
         -- Debug: Show player position and distance from the origin
-        print("Player " .. playerId .. " is at " .. playerCoords)
+        --print("Player " .. playerId .. " is at " .. playerCoords)
 
         -- Check if the player is within 50 meters of the origin player
         if #(coords - playerCoords) < Config.Distance then
-            print("Player " .. playerId .. " is within range, sending dice roll...")  -- Debug print
+            --print("Player " .. playerId .. " is within range, sending dice roll...")  -- Debug print
             -- Send the dice roll result, name, and dice roll to this player
             TriggerClientEvent("showDiceToNearby", playerId, diceRoll, firstname, lastname)
         else
